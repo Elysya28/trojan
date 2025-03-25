@@ -1,0 +1,90 @@
+{
+  "log": {
+    "loglevel": "warning",
+    "access": "/var/log/xray/access.log",
+    "error": "/var/log/xray/error.log"
+  },
+  "api": {
+    "services": [
+      "StatsService"
+    ],
+    "tag": "api"
+  },
+  "stats": {},
+  "policy": {
+    "levels": {
+      "0": {
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": "80",
+      "protocol": "trojan",
+      "settings": {
+          "decryption":"none",		
+           "clients": [
+              {
+            "password": "25c45d46-d02e-a5e2-4b4c-ea85c2555b8a",
+            "email": "admin@rerechanstore.eu.org"
+              }
+          ],
+         "udp": true
+       },
+       "streamSettings":{
+           "network": "ws",
+           "wsSettings": {
+               "path": "/"
+            }
+         }
+     },
+    {
+      "tag": "api",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "dns-out",
+      "protocol": "dns",
+      "settings": {}
+    }
+  ],
+  "dns": {
+    "servers": [
+      "1.1.1.1",
+      "8.8.8.8",
+      "9.9.9.9",
+      "2606:4700:4700::1111",
+      "2001:4860:4860::8888",
+      "https://dns.google/dns-query",
+      "https://cloudflare-dns.com/dns-query",
+      "https://dns.adguard.com/dns-query",
+      {
+        "address": "localhost",
+        "port": 53,
+        "domains": ["geosite:private"]
+      }
+    ]
+  },
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["api"],
+        "outboundTag": "dns-out"
+      }
+    ]
+  }
+}
