@@ -1,4 +1,4 @@
-# Autoscript Trojan WebSocket By Farell Aditya
+# Autoscript Trojan WebSocket Only
 
 ## **Instalaltion**
 
