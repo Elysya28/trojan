@@ -42,8 +42,19 @@ cd haproxy-${HAPROXY_VERSION}
 make TARGET=linux-glibc USE_OPENSSL=1 USE_PCRE=1 USE_SYSTEMD=1
 make install
 ln -sf /usr/local/sbin/haproxy /usr/sbin/haproxy
+rm -f /usr/sbin/haproxy
+cat /usr/local/sbin/haproxy > /usr/sbin/haproxy
+chmod +x /usr/sbin/haproxy
 
 echo "[✓] HAProxy v$HAPROXY_VERSION berhasil diinstal."
 
 # Cek versi
 haproxy -v
+
+# Setup Service
+systemctl stop haproxy
+systemctl disable haproxy
+rm -f /lib/systemd/system/haproxy.service
+cd /etc/systemd/system
+wget -O haproxy.service "https://raw.githubusercontent.com/Farell-VPN/trojan/main/haproxy.service"
+systemctl daemon-reload
