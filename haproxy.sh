@@ -1,4 +1,6 @@
-    OS_ID=$(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"')
+ set -e
+
+   OS_ID=$(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"')
     OS_NAME=$(grep -w PRETTY_NAME /etc/os-release | cut -d'=' -f2 | tr -d '"')
     OS_VERSION=$(grep -w VERSION_ID /etc/os-release | cut -d'=' -f2 | tr -d '"')
 
