@@ -1,5 +1,6 @@
 Setelah selesai install lanjut install atau konfigurasi :
+- ganti domain
 - install helium
 - konfigurasi ulang rclone untuk backup
 - install htop
-- ganti domain
+
